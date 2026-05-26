@@ -1,7 +1,9 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-
-const ItemCard = () => {
+import { useDispatch } from "react-redux";
+import { incQty, decQty, removeFromCart } from "../slices/CartSlice";
+const ItemCard = ({ id, image, title, desc, rating, price, qty }) => {
+  const dispatch = useDispatch();
   return (
     <div>
       {/* Cart Item */}
@@ -10,33 +12,78 @@ const ItemCard = () => {
         {/* Left */}
         <div className="flex items-center gap-3">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/6978/6978255.png"
-            alt="pizza"
+            src={image}
+            alt=""
             className="w-16 h-16 object-contain rounded-full bg-gray-100 p-1"
           />
 
           <div>
             <h2 className="font-semibold text-gray-800 text-sm sm:text-base">
-              Margherita Pizza
+              {name}
             </h2>
 
-            <p className="text-green-500 font-bold">₹130</p>
+            <p className="text-green-500 font-bold">₹{price}</p>
           </div>
         </div>
 
         {/* Right */}
         <div className="flex items-center gap-3">
-          <button className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
+          <button
+            onClick={() => {
+              dispatch(
+                decQty({
+                  id,
+                  title,
+                  price,
+                  desc,
+                  image,
+                  rating,
+                  qty,
+                })
+              );
+            }}
+            className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+          >
             -
           </button>
 
-          <span className="font-semibold text-gray-700">1</span>
+          <span className="font-semibold text-gray-700">{qty}</span>
 
-          <button className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all">
+          <button
+            onClick={() => {
+              dispatch(
+                incQty({
+                  id,
+                  title,
+                  price,
+                  desc,
+                  image,
+                  rating,
+                  qty,
+                })
+              );
+            }}
+            className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all"
+          >
             +
           </button>
           <button className="text-red-500 hover:text-red-700 text-xl transition-all">
-            <MdDelete className="text-red-500 text-2xl cursor-pointer hover:text-red-700" />
+            <MdDelete
+              onClick={() => {
+                dispatch(
+                  removeFromCart({
+                    id,
+                    title,
+                    price,
+                    desc,
+                    image,
+                    rating,
+                    qty,
+                  })
+                );
+              }}
+              className="text-red-500 text-2xl cursor-pointer hover:text-red-700"
+            />
           </button>
         </div>
       </div>

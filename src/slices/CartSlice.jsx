@@ -9,14 +9,42 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, actions) => {
-      state.cartItems.push(actions.payload);
+      const check = state.cartItems.find(
+        (item) => item.id == actions.payload.id
+      );
+      if (check) {
+        state.cartItems = state.cartItems.map((item) =>
+          item.id == actions.payload.id
+            ? { ...item, qty: item.qty + 1 }
+            : { ...item }
+        );
+      } else state.cartItems.push(actions.payload);
     },
     removeFromCart: (state, actions) => {
-      state.cartItems = state.cartItems.filter(
-        (item) => item.id != actions.payload.id
+      state.cartItems = state.cartItems.map((item) =>
+        item.id == actions.payload.id
+          ? { ...item, qty: item.qty - 1 }
+          : { ...item }
       );
+      state.cartItems = state.cartItems.filter((item) => item.qty != 0);
+    },
+    incQty: (state, actions) => {
+      state.cartItems = state.cartItems.map((item) =>
+        item.id == actions.payload.id
+          ? { ...item, qty: item.qty + 1 }
+          : { ...item }
+      );
+      state.cartItems = state.cartItems.filter((item) => item.qty != 0);
+    },
+    decQty: (state, actions) => {
+      state.cartItems = state.cartItems.map((item) =>
+        item.id == actions.payload.id
+          ? { ...item, qty: item.qty - 1 }
+          : { ...item }
+      );
+      state.cartItems = state.cartItems.filter((item) => item.qty != 0);
     },
   },
 });
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, incQty, decQty } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -8,7 +8,7 @@ const Foods = () => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setFoodItems(data);
       })
       .catch((err) => console.log(err));
@@ -19,7 +19,7 @@ const Foods = () => {
         <FoodCard
           key={item.id}
           id={item.id}
-          name={item.title}
+          title={item.title}
           price={item.price}
           desc={item.description}
           rating={item.rating.rate}

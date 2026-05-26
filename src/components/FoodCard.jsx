@@ -19,7 +19,7 @@ const FoodCard = ({ id, desc, rating, price, title, image }) => {
         {/* Header */}
         <div className="flex justify-between items-center mt-3">
           <h2 className="text-xl font-semibold text-gray-800">
-            {name.slice(0, 10)}
+            {title.slice(0, 10)}
           </h2>
 
           <p className="text-green-500 font-bold text-lg">₹{price}</p>
@@ -40,7 +40,9 @@ const FoodCard = ({ id, desc, rating, price, title, image }) => {
 
           <button
             onClick={() => {
-              dispatch(addToCart({ id, title, price, desc, rating, qty: 1 }));
+              dispatch(
+                addToCart({ id, title, price, desc, image, rating, qty: 1 })
+              );
             }}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
           >

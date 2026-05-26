@@ -10,12 +10,10 @@ const Home = () => {
   return (
     <div className="relative overflow-x-hidden">
       <Navbar />
-
       <CategoryMenu />
-
       <Foods />
 
-      {/* Floating Cart Button */}
+      {/* Cart Button */}
       {!showCart && (
         <button
           onClick={() => setShowCart(true)}
