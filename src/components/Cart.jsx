@@ -2,7 +2,8 @@ import React from "react";
 import { ImCross } from "react-icons/im";
 import ItemCard from "./ItemCard";
 import { useSelector } from "react-redux";
-// import toast, { Toaster } from "react-hot-toast";
+import Success from "../pages/Success";
+import { useNavigate } from "react-router-dom";
 const Cart = ({ setShowCart }) => {
   const items = useSelector((state) => state.cart.cartItems);
   const totalItems = items.reduce((totQ, item) => totQ + item.qty, 0);
@@ -10,6 +11,7 @@ const Cart = ({ setShowCart }) => {
     (totC, item) => totC + item.qty * item.price,
     0
   );
+  const navigate = useNavigate();
   return (
     <>
       <div className="w-full max-w-sm h-screen bg-gray-100 p-4 flex flex-col shadow-xl overflow-hidden">
@@ -71,7 +73,10 @@ const Cart = ({ setShowCart }) => {
             <span className="text-green-500">₹{totalCost}</span>
           </div>
 
-          <button className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-2xl text-lg font-semibold transition-all duration-300">
+          <button
+            onClick={() => navigate("/success")}
+            className="w-full cursor-pointer bg-green-500 hover:bg-green-600 text-white py-3 rounded-2xl text-lg font-semibold transition-all duration-300"
+          >
             Checkout
           </button>
         </div>

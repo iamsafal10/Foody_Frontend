@@ -1,9 +1,11 @@
 import React from "react";
 import AppLogo from "../assets/diet.png";
-
+import { useDispatch } from "react-redux";
+import { setSearch } from "../slices/SearchSlice";
 const date = new Date().toUTCString().slice(0, 17);
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   return (
     <nav className="w-full bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 text-white border-b border-slate-800 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-5">
@@ -46,6 +48,7 @@ const Navbar = () => {
               focus:ring-2 focus:ring-orange-500/40
               transition-all duration-300
             "
+            onChange={(e) => dispatch(setSearch(e.target.value))}
           />
         </div>
       </div>
