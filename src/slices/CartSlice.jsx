@@ -22,9 +22,7 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, actions) => {
       state.cartItems = state.cartItems.map((item) =>
-        item.id == actions.payload.id
-          ? { ...item, qty: item.qty - 1 }
-          : { ...item }
+        item.id == actions.payload.id ? { ...item, qty: 0 } : { ...item }
       );
       state.cartItems = state.cartItems.filter((item) => item.qty != 0);
     },
