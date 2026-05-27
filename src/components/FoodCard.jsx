@@ -2,7 +2,7 @@ import React from "react";
 import AppLogo from "../assets/diet.png";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../slices/CartSlice";
-const FoodCard = ({ id, desc, rating, price, title, image }) => {
+const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
   const dispatch = useDispatch();
   return (
     <div className="w-72 bg-gray-100 p-4 rounded-2xl">
@@ -43,6 +43,7 @@ const FoodCard = ({ id, desc, rating, price, title, image }) => {
               dispatch(
                 addToCart({ id, title, price, desc, image, rating, qty: 1 })
               );
+              handleToast(title);
             }}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
           >
