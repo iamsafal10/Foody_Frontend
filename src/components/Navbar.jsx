@@ -10,6 +10,7 @@ import NavList from "./Navlist";
 import axios from "axios";
 import { useEffect } from "react";
 import { loginUser, setUser } from "../slices/AuthSlice";
+import { getCart } from "../../helper";
 axios.defaults.withCredentials = true;
 const Navbar = () => {
   const dispatch = useDispatch();
