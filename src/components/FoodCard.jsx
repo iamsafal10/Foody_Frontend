@@ -1,9 +1,34 @@
 import React from "react";
 import AppLogo from "../assets/diet.png";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../slices/CartSlice";
+import { setCart } from "../slices/CartSlice";
+import { useSelector, useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { getCart } from "../../helper";
+import axios from "axios";
+// import { addToCart } from "../slices/CartSlice";
 const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  const addToCart = async ({ id, title, image, price, rating, quantity }) => {
+    const res = await axios.post(
+      `http://localhost:5000/api/add-to-cart/${user._id}`,
+      {
+        id,
+        name: title,
+        image,
+        price,
+        rating,
+        quantity,
+      }
+    );
+
+    const data = await res.data;
+
+    toast.success(data.message);
+
+    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+  };
   return (
     <div className="w-72 bg-gray-100 py-4 px-4 rounded-2xl">
       <div className="bg-white rounded-2xl shadow-md p-4 hover:shadow-xl transition-all duration-300">
@@ -41,10 +66,9 @@ const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
 
           <button
             onClick={() => {
-              dispatch(
-                addToCart({ id, title, price, desc, image, rating, qty: 1 })
-              );
-              handleToast(title);
+              !user
+                ? toast.error("Please login to add to cart")
+                : addToCart({ id, image, title, price, rating, quantity: 1 });
             }}
             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
           >

@@ -4,6 +4,8 @@ import CategoryMenu from "../components/CategoryMenu";
 import Foods from "../components/Foods";
 import Cart from "../components/Cart";
 import { FaShoppingCart } from "react-icons/fa";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const Home = () => {
   const [showCart, setShowCart] = useState(false);
 

@@ -4,9 +4,21 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "../slices/CartSlice";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import axios from "axios";
 const Success = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const clearCart = async () => {
+    const res = await axios.get("http://localhost:5000/api/clear-cart");
+    console.log("cleared cart");
+    const data = await res.data;
+    toast.success(data.message);
+  };
+  useEffect(() => {
+    clearCart();
+  }, []);
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-green-50 to-green-100 px-4">
       <motion.div
@@ -50,9 +62,10 @@ const Success = () => {
         {/* Button */}
         <motion.button
           onClick={() => {
-            dispatch(emptyCart());
-            navigate("/")
-            }}
+            // clearCart();
+            // dispatch(emptyCart());
+            navigate("/");
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="mt-8 bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-2xl text-lg font-semibold shadow-lg transition-all"

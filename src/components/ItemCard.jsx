@@ -1,8 +1,11 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { incQty, decQty, removeFromCart } from "../slices/CartSlice";
+import { setCart } from "../slices/CartSlice";
 import toast from "react-hot-toast";
+import { getCart } from "../../helper";
+import axios from "axios";
 const ItemCard = ({
   id,
   image,
@@ -10,10 +13,41 @@ const ItemCard = ({
   desc,
   rating,
   price,
-  qty,
+  quantity,
   handleToast,
+  _id,
 }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  const removeFromCart = async (id) => {
+    const res = await axios.delete(
+      `http://localhost:5000/api/remove-from-cart/${id}`
+    );
+
+    const data = await res.data;
+    toast.success(data.message);
+    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+  };
+  const incrementQuantity = async (id) => {
+    const res = await axios.put(
+      `http://localhost:5000/api/increment-quantity/${id}`
+    );
+
+    const data = await res.data;
+    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+  };
+  const decrementQuantity = async (id) => {
+    const res = await axios.put(
+      `http://localhost:5000/api/decrement-quantity/${id}`
+    );
+
+    const data = await res.data;
+    getCart(user).then((data) => {
+      console.log("doing");
+      dispatch(setCart(data.cartItems));
+    });
+  };
   return (
     <div>
       {/* Cart Item */}
@@ -39,40 +73,16 @@ const ItemCard = ({
         {/* Right */}
         <div className="flex items-center gap-3">
           <button
-            onClick={() => {
-              dispatch(
-                decQty({
-                  id,
-                  title,
-                  price,
-                  desc,
-                  image,
-                  rating,
-                  qty,
-                })
-              );
-            }}
+            onClick={() => decrementQuantity(_id)}
             className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
           >
             -
           </button>
 
-          <span className="font-semibold text-gray-700">{qty}</span>
+          <span className="font-semibold text-gray-700">{quantity}</span>
 
           <button
-            onClick={() => {
-              dispatch(
-                incQty({
-                  id,
-                  title,
-                  price,
-                  desc,
-                  image,
-                  rating,
-                  qty,
-                })
-              );
-            }}
+            onClick={() => incrementQuantity(_id)}
             className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all"
           >
             +
@@ -80,20 +90,7 @@ const ItemCard = ({
           <button className="text-red-500 hover:text-red-700 text-xl transition-all">
             <MdDelete
               onClick={() => {
-                dispatch(
-                  removeFromCart({
-                    id,
-                    title,
-                    price,
-                    desc,
-                    image,
-                    rating,
-                    qty,
-                  })
-                );
-                toast(`${title} Removed!`, {
-                  icon: "❌",
-                });
+                removeFromCart(_id);
               }}
               className="text-red-500 text-2xl cursor-pointer hover:text-red-700"
             />

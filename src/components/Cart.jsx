@@ -6,9 +6,9 @@ import Success from "../pages/Success";
 import { useNavigate } from "react-router-dom";
 const Cart = ({ setShowCart }) => {
   const items = useSelector((state) => state.cart.cartItems);
-  const totalItems = items.reduce((totQ, item) => totQ + item.qty, 0);
+  const totalItems = items.reduce((totQ, item) => totQ + item.quantity, 0);
   const totalCost = items.reduce(
-    (totC, item) => totC + item.qty * item.price,
+    (totC, item) => totC + item.quantity * item.price,
     0
   );
   const navigate = useNavigate();
@@ -50,11 +50,12 @@ const Cart = ({ setShowCart }) => {
               items.map((item) => (
                 <ItemCard
                   key={item.id}
+                  _id={item._id}
                   id={item.id}
                   image={item.image}
                   title={item.title}
                   price={item.price}
-                  qty={item.qty}
+                  quantity={item.quantity}
                 />
               ))
             )}

@@ -1,11 +1,33 @@
 import React from "react";
 import AppLogo from "../assets/diet.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../slices/SearchSlice";
 const date = new Date().toUTCString().slice(0, 17);
-
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdClose } from "react-icons/md";
+import { useState } from "react";
+import NavList from "./Navlist";
+import axios from "axios";
+import { useEffect } from "react";
+import { loginUser, setUser } from "../slices/AuthSlice";
+axios.defaults.withCredentials = true;
 const Navbar = () => {
   const dispatch = useDispatch();
+  const [toggleNav, setToggleNav] = useState(false);
+  const auth = useSelector((state) => state.auth.isAuth);
+  const user = useSelector((state) => state.auth.use);
+  const getUser = async () => {
+    const res = await axios.get("http://localhost:5000/api/get-user", {
+      withCredentials: true,
+    });
+    const data = await res.data;
+    console.log(data);
+    dispatch(loginUser);
+    dispatch(setUser(data.user));
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <nav className="w-full bg-linear-to-r from-slate-950 via-slate-900 to-slate-950 text-white border-b border-slate-800 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-5">
@@ -52,6 +74,20 @@ const Navbar = () => {
           />
         </div>
       </div>
+      <GiHamburgerMenu
+        className={`absolute top-5 right-5 lg:right-8 lg:top-6 text-2xl text-gray-600 cursor-pointer ${
+          toggleNav && "hidden"
+        } transition-all ease-in-out duration-500`}
+        onClick={() => setToggleNav(true)}
+      />
+
+      <MdClose
+        className={`absolute top-5 right-5 lg:right-8 lg:top-6 text-2xl text-gray-600 cursor-pointer ${
+          !toggleNav && "hidden"
+        } transition-all ease-in-out duration-500`}
+        onClick={() => setToggleNav(false)}
+      />
+      <NavList toggleNav={toggleNav} setToggleNav={setToggleNav} auth={auth} />
     </nav>
   );
 };
