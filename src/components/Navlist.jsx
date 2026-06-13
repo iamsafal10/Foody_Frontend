@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 axios.defaults.withCredentials = true;
 import { logoutUser } from "../slices/AuthSlice";
 import { useDispatch } from "react-redux";
+import { setCart } from "../slices/CartSlice";
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
   const dispatch = useDispatch();
   const LogOut = async () => {
