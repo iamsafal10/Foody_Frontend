@@ -17,13 +17,20 @@ const Navbar = () => {
   const auth = useSelector((state) => state.auth.isAuth);
   const user = useSelector((state) => state.auth.use);
   const getUser = async () => {
-    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/get-user", {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      "https://foody-backend-hk2y.onrender.com/api/get-user",
+      {
+        withCredentials: true,
+      }
+    );
     const data = await res.data;
     console.log(data);
     dispatch(loginUser);
     dispatch(setUser(data.user));
+    dispatch(setUser(data.user));
+
+    const cartData = await getCart(data.user);
+    dispatch(setCart(cartData.cartItems));
   };
   useEffect(() => {
     getUser();

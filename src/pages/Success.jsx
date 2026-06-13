@@ -68,8 +68,6 @@ const Success = () => {
         {/* Button */}
         <motion.button
           onClick={() => {
-            // clearCart();
-            // dispatch(emptyCart());
             navigate("/");
           }}
           whileHover={{ scale: 1.05 }}
