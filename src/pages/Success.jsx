@@ -7,11 +7,17 @@ import { emptyCart } from "../slices/CartSlice";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 const Success = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clearCart = async () => {
-    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/clear-cart");
+    const res = await axios.get(
+      "https://foody-backend-hk2y.onrender.com/api/clear-cart",
+      {
+        withCredentials: true,
+      }
+    );
     console.log("cleared cart");
     const data = await res.data;
     toast.success(data.message);

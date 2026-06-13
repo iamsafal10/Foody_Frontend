@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import { toast } from "react-hot-toast";
 const Signup = () => {
   const navigate = useNavigate();
@@ -11,11 +12,17 @@ const Signup = () => {
   const handleUserSignUp = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("https://foody-backend-hk2y.onrender.com/api/signup", {
-      name,
-      email,
-      password,
-    });
+    const res = await axios.post(
+      "https://foody-backend-hk2y.onrender.com/api/signup",
+      {
+        name,
+        email,
+        password,
+      },
+      {
+        withCredentials: true,
+      }
+    );
     const data = await res.data;
     console.log(data);
     if (res.status === 201) {

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+axios.defaults.withCredentials = true;s
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 const VerifyOtp = () => {
@@ -14,6 +15,9 @@ const VerifyOtp = () => {
       const res = await axios.put("https://foody-backend-hk2y.onrender.com/api/verify-otp", {
         otp,
         newPassword: password,
+      },
+      {
+        withCredentials: true,
       });
       const data = await res.data;
       console.log(data);

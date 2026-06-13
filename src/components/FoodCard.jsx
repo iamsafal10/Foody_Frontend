@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { getCart } from "../../helper";
 import axios from "axios";
-// import { addToCart } from "../slices/CartSlice";
+axios.defaults.withCredentials = true;
 const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -20,6 +20,9 @@ const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
         price,
         rating,
         quantity,
+      },
+      {
+        withCredentials: true,
       }
     );
 

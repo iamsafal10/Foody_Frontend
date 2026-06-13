@@ -6,6 +6,7 @@ import { setCart } from "../slices/CartSlice";
 import toast from "react-hot-toast";
 import { getCart } from "../../helper";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 const ItemCard = ({
   id,
   image,
@@ -22,7 +23,10 @@ const ItemCard = ({
 
   const removeFromCart = async (id) => {
     const res = await axios.delete(
-      `https://foody-backend-hk2y.onrender.com/api/remove-from-cart/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/remove-from-cart/${id}`,
+      {
+        withCredentials: true,
+      }
     );
 
     const data = await res.data;
@@ -31,7 +35,10 @@ const ItemCard = ({
   };
   const incrementQuantity = async (id) => {
     const res = await axios.put(
-      `https://foody-backend-hk2y.onrender.com/api/increment-quantity/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/increment-quantity/${id}`,
+      {
+        withCredentials: true,
+      }
     );
 
     const data = await res.data;
@@ -39,12 +46,14 @@ const ItemCard = ({
   };
   const decrementQuantity = async (id) => {
     const res = await axios.put(
-      `https://foody-backend-hk2y.onrender.com/api/decrement-quantity/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/decrement-quantity/${id}`,
+      {
+        withCredentials: true,
+      }
     );
 
     const data = await res.data;
     getCart(user).then((data) => {
-      console.log("doing");
       dispatch(setCart(data.cartItems));
     });
   };

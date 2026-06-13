@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import toast from "react-hot-toast";
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
   const LogOut = async () => {
-    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/logout");
+    const res = await axios.get(
+      "https://foody-backend-hk2y.onrender.com/api/logout",
+      {
+        withCredentials: true,
+      }
+    );
     const data = await res.data;
     toast.success(data.message);
     setToggleNav(!toggleNav);

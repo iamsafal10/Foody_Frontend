@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+axios.defaults.withCredentials = true;
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 const ResetPassword = () => {
@@ -11,9 +12,15 @@ const ResetPassword = () => {
     console.log("handle reset password function working fine ");
     e.preventDefault();
     try {
-      const res = await axios.put("https://foody-backend-hk2y.onrender.com/api/reset-password", {
-        email,
-      });
+      const res = await axios.put(
+        "https://foody-backend-hk2y.onrender.com/api/reset-password",
+        {
+          email,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       const data = await res.data;
 
       if (data.success) {
