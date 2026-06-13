@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
   const LogOut = async () => {
-    const res = await axios.get("http://localhost:5000/api/logout");
+    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/logout");
     const data = await res.data;
     toast.success(data.message);
     setToggleNav(!toggleNav);

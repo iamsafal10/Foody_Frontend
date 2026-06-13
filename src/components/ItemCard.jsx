@@ -22,7 +22,7 @@ const ItemCard = ({
 
   const removeFromCart = async (id) => {
     const res = await axios.delete(
-      `http://localhost:5000/api/remove-from-cart/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/remove-from-cart/${id}`
     );
 
     const data = await res.data;
@@ -31,7 +31,7 @@ const ItemCard = ({
   };
   const incrementQuantity = async (id) => {
     const res = await axios.put(
-      `http://localhost:5000/api/increment-quantity/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/increment-quantity/${id}`
     );
 
     const data = await res.data;
@@ -39,7 +39,7 @@ const ItemCard = ({
   };
   const decrementQuantity = async (id) => {
     const res = await axios.put(
-      `http://localhost:5000/api/decrement-quantity/${id}`
+      `https://foody-backend-hk2y.onrender.com/api/decrement-quantity/${id}`
     );
 
     const data = await res.data;

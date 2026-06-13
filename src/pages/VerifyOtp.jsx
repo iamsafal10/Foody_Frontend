@@ -11,7 +11,7 @@ const VerifyOtp = () => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/verify-otp", {
+      const res = await axios.put("https://foody-backend-hk2y.onrender.com/api/verify-otp", {
         otp,
         newPassword: password,
       });

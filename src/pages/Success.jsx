@@ -11,7 +11,7 @@ const Success = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const clearCart = async () => {
-    const res = await axios.get("http://localhost:5000/api/clear-cart");
+    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/clear-cart");
     console.log("cleared cart");
     const data = await res.data;
     toast.success(data.message);

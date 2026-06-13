@@ -11,7 +11,7 @@ const ResetPassword = () => {
     console.log("handle reset password function working fine ");
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/reset-password", {
+      const res = await axios.put("https://foody-backend-hk2y.onrender.com/api/reset-password", {
         email,
       });
       const data = await res.data;

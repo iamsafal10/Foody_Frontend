@@ -11,7 +11,7 @@ const Signup = () => {
   const handleUserSignUp = async (e) => {
     e.preventDefault();
 
-    const res = await axios.post("http://localhost:5000/api/signup", {
+    const res = await axios.post("https://foody-backend-hk2y.onrender.com/api/signup", {
       name,
       email,
       password,

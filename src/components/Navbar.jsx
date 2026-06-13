@@ -17,7 +17,7 @@ const Navbar = () => {
   const auth = useSelector((state) => state.auth.isAuth);
   const user = useSelector((state) => state.auth.use);
   const getUser = async () => {
-    const res = await axios.get("http://localhost:5000/api/get-user", {
+    const res = await axios.get("https://foody-backend-hk2y.onrender.com/api/get-user", {
       withCredentials: true,
     });
     const data = await res.data;
