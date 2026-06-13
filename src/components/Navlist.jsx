@@ -5,8 +5,8 @@ axios.defaults.withCredentials = true;
 import { logoutUser } from "../slices/AuthSlice";
 import { useDispatch } from "react-redux";
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
+  const dispatch = useDispatch();
   const LogOut = async () => {
-    const dispatch = useDispatch();
     const res = await axios.get(
       "https://foody-backend-hk2y.onrender.com/api/logout",
       {
@@ -15,6 +15,7 @@ const NavList = ({ toggleNav, setToggleNav, auth }) => {
     );
     const data = await res.data;
     dispatch(logoutUser());
+    dispatch(setCart([]));
     toast.success(data.message);
     setToggleNav(!toggleNav);
     window.location.href = "/";
