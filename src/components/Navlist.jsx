@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-axios.defaults.withCredentials = true;
 import toast from "react-hot-toast";
+axios.defaults.withCredentials = true;
+
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
   const LogOut = async () => {
     const res = await axios.get(

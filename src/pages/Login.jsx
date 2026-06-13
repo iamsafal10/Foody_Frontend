@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { getCart } from "../../helper";
 import { setCart } from "../slices/CartSlice";
 axios.defaults.withCredentials = true;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

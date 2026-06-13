@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { getCart } from "../../helper";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+
 const ItemCard = ({
   id,
   image,

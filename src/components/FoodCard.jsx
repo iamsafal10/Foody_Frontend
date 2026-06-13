@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { getCart } from "../../helper";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+
 const FoodCard = ({ id, desc, rating, price, title, image, handleToast }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
