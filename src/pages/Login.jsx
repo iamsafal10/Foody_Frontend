@@ -29,10 +29,8 @@ const Login = () => {
     const data = await res.data;
     console.log(data);
     if (res.status === 200) {
-      dispatch(loginUser);
-
+      dispatch(loginUser());
       dispatch(setUser(data.user));
-
       const cartData = await getCart(data.user);
       dispatch(setCart(cartData.cartItems));
       toast.success(data.message);

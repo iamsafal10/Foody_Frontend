@@ -15,7 +15,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const [toggleNav, setToggleNav] = useState(false);
   const auth = useSelector((state) => state.auth.isAuth);
-  const user = useSelector((state) => state.auth.use);
+  const user = useSelector((state) => state.auth.user);
   const getUser = async () => {
     const res = await axios.get(
       "https://foody-backend-hk2y.onrender.com/api/get-user",
@@ -25,10 +25,8 @@ const Navbar = () => {
     );
     const data = await res.data;
     console.log(data);
-    dispatch(loginUser);
+    dispatch(loginUser());
     dispatch(setUser(data.user));
-    dispatch(setUser(data.user));
-
     const cartData = await getCart(data.user);
     dispatch(setCart(cartData.cartItems));
   };

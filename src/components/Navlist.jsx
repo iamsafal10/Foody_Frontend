@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 axios.defaults.withCredentials = true;
-
+import { logoutUser } from "../slices/AuthSlice";
+import { useDispatch } from "react-redux";
 const NavList = ({ toggleNav, setToggleNav, auth }) => {
   const LogOut = async () => {
+    const dispatch = useDispatch();
     const res = await axios.get(
       "https://foody-backend-hk2y.onrender.com/api/logout",
       {
@@ -12,6 +14,7 @@ const NavList = ({ toggleNav, setToggleNav, auth }) => {
       }
     );
     const data = await res.data;
+    dispatch(logoutUser());
     toast.success(data.message);
     setToggleNav(!toggleNav);
     window.location.href = "/";
