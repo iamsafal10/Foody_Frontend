@@ -3,7 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { emptyCart } from "../slices/CartSlice";
+import { emptyCart, setCart } from "../slices/CartSlice";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -68,6 +68,7 @@ const Success = () => {
         {/* Button */}
         <motion.button
           onClick={() => {
+            dispatch(setCart([]));
             navigate("/");
           }}
           whileHover={{ scale: 1.05 }}
