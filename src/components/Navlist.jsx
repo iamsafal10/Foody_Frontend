@@ -16,7 +16,6 @@ const NavList = ({ toggleNav, setToggleNav, auth }) => {
     );
     const data = await res.data;
     dispatch(logoutUser());
-    dispatch(setCart([]));
     toast.success(data.message);
     setToggleNav(!toggleNav);
     window.location.href = "/";

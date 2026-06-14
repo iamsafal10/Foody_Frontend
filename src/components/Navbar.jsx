@@ -19,18 +19,18 @@ const Navbar = () => {
   const auth = useSelector((state) => state.auth.isAuth);
   const user = useSelector((state) => state.auth.user);
   const getUser = async () => {
-    const res = await axios.get(
-      "https://foody-backend-hk2y.onrender.com/api/get-user",
-      {
-        withCredentials: true,
+    try {
+      const res = await axios.get(
+        "https://foody-backend-hk2y.onrender.com/api/get-user",
+        { withCredentials: true }
+      );
+      if (res.data.success) {
+        dispatch(loginUser());
+        dispatch(setUser(data.user));
       }
-    );
-    const data = await res.data;
-    console.log(data);
-    dispatch(loginUser());
-    dispatch(setUser(data.user));
-    const cartData = await getCart(data.user);
-    dispatch(setCart(cartData.cartItems));
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
     getUser();
