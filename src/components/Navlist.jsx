@@ -3,11 +3,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 axios.defaults.withCredentials = true;
 import { logoutUser } from "../slices/AuthSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCart } from "../slices/CartSlice";
-const NavList = ({ toggleNav, setToggleNav, auth }) => {
+const NavList = ({ toggleNav, setToggleNav }) => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.isAuth);
   const LogOut = async () => {
+    console.log(auth);
     const res = await axios.get(
       "https://foody-backend-hk2y.onrender.com/api/logout",
       {

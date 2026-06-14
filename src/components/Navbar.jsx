@@ -24,7 +24,8 @@ const Navbar = () => {
         "https://foody-backend-hk2y.onrender.com/api/get-user",
         { withCredentials: true }
       );
-      if (res.data.success) {
+      const data = res.data;
+      if (data.success) {
         dispatch(loginUser());
         dispatch(setUser(data.user));
       }
@@ -94,7 +95,7 @@ const Navbar = () => {
         } transition-all ease-in-out duration-500`}
         onClick={() => setToggleNav(false)}
       />
-      <NavList toggleNav={toggleNav} setToggleNav={setToggleNav} auth={auth} />
+      <NavList toggleNav={toggleNav} setToggleNav={setToggleNav} />
     </nav>
   );
 };
